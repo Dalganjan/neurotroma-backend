@@ -1,0 +1,25 @@
+﻿{
+    "connectionString": "mongodb+srv://exact12:F8XgqBsNqCW9bs2X@neurotroma-mvp.iiotaq2.mongodb.net/mvp?retryWrites=true&w=majority&appName=neurotroma-mvp",
+    "secret": "thisisaverificationtoken",
+    "emailFrom": "admin@willit.legal",
+    "smtpOptions": {
+        "host": "smtp.ethereal.email",
+        "port": 587,
+        "auth": {
+            "user": "brice.conn36@ethereal.email",
+            "pass": "PnNc4jnF3Z7SxAmNTq"
+        }
+    },
+    "awssmtpOptions": {
+        "host": "email-smtp.ap-south-1.amazonaws.com",
+        "port": 587,
+        "auth": {
+            "user": "AKIA34AZ23YEPH6YZR67",
+            "pass": "BDKdJFGt+FdGlskITZEUQaqlZO7w/GINHaWSmHQBxrhZ"
+        }
+    },
+    "airtable": {
+        "AIRTABLE_API_TOKEN": "patZSkzpoFnCxqafR.dc096c20f84cd23a18454aeb1fa8ada6fa8d0050babb1c1a353e6ece83ad2fd3",
+        "AIRTABLE_BASE": "appLr4aQCjRXzyvEj"
+    }
+}
