@@ -29,6 +29,10 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "express-jwt": "^6.0.0",
+    "grunt": "^1.6.1",
+    "grunt-babel": "^8.0.0",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-eslint": "^25.0.0",
     "joi": "^17.1.1",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.4",
@@ -38,9 +42,7 @@
     "pug": "^3.0.2",
     "rootpath": "^0.1.2",
     "swagger-ui-express": "^4.6.0",
-    "yamljs": "^0.3.0",
-    "grunt": "^1.6.1",
-    "Babel": "^0.0.1"
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
