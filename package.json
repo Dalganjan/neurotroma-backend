@@ -39,7 +39,8 @@
     "rootpath": "^0.1.2",
     "swagger-ui-express": "^4.6.0",
     "yamljs": "^0.3.0",
-    "grunt": "^1.6.1"
+    "grunt": "^1.6.1",
+    "Babel": "^0.0.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"

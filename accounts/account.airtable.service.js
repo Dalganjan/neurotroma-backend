@@ -40,7 +40,7 @@ async function authenticate({ email, password }) {
 
 async function refreshToken({ token }) {
     const id = await getAccountIdbyToken(token);
-    if(!id) {
+    if (!id) {
         throw "Invalid token";
     }
     const account = await getAccount(id);
@@ -67,7 +67,7 @@ async function register(params, origin) {
     }
 
     console.log("Account Register", params);
-    let { title, firstName, lastName, email, contactNumber, password, role } = params; 
+    let { title, firstName, lastName, email, contactNumber, password, role } = params;
 
     const newAccount = {
         [accountSchema.fields.title.name]: title,
@@ -75,10 +75,10 @@ async function register(params, origin) {
         [accountSchema.fields.lastName.name]: lastName,
         [accountSchema.fields.email.name]: email.toLowerCase(),
         [accountSchema.fields.contactNumber.name]: contactNumber,
-        [accountSchema.fields.password.name]:  hash(password),
+        [accountSchema.fields.password.name]: hash(password),
         [accountSchema.fields.role.name]: role
     };
-    
+
     // save account
     await accountService.createUser(newAccount);
     return newAccount;
@@ -114,12 +114,12 @@ async function getTokenDetails(token) {
 async function getAccountIdbyToken(token) {
     try {
         const data = await getTokenDetails(token);
-        const nonExpiredData = (data && data.length == 1  && data[0].fields && (data[0].fields.isExpired === 'false')) ? data[0] : {};
+        const nonExpiredData = (data && data.length == 1 && data[0].fields && (data[0].fields.isExpired === 'false')) ? data[0] : {};
         if (nonExpiredData && nonExpiredData.id) {
             const { accountId } = nonExpiredData.fields;
             return accountId;
         } else {
-            return null; 
+            return null;
         }
     } catch (error) {
         console.error("Error while processing token", error);
@@ -159,10 +159,10 @@ function basicDetails(account, id) {
 async function createOrUpdateToken(token, id) {
     try {
         const data = await getTokenDetails(token);
-        if (data.length && data.fields) {
-            await airtable.updateRecord('RevokedTokens', data[0].id, { Token: token, accountId: data[0].fields.accountId, isExpired: 'true'});
-        } else {
-            await airtable.createRecord('RevokedTokens', { Token: token, accountId: id,  isExpired: 'false' });
+        if (data.length === 1 && data[0].fields) {
+            await airtable.updateRecord('RevokedTokens', data[0].id, { Token: token, accountId: data[0].fields.accountId, isExpired: 'true' });
+        } else if (id) {
+            await airtable.createRecord('RevokedTokens', { Token: token, accountId: id, isExpired: 'false' });
         }
     } catch (error) {
         throw "Error while updating/creating new token";
