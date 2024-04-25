@@ -1,13 +1,4 @@
-const Airtable = require('airtable');
-const { airtable: { AIRTABLE_API_TOKEN, AIRTABLE_BASE  } } = require('config.json');
-
-
-Airtable.configure({
-    endpointUrl: 'https://api.airtable.com',
-    apiKey: AIRTABLE_API_TOKEN
-});
-
-const base = Airtable.base(AIRTABLE_BASE);
+const base = require('_helpers/airtable');
 
 module.exports = {
     fetchRecords,
@@ -71,6 +62,7 @@ async function getRecordByFilters(table, filterQuery) {
             filterByFormula: `${filterQuery}`
         }).all(); // filter by formula {Email} = '${email}'
         console.log('data fetched', data);
+        return data;
     } catch (error) {
         console.error('Error generating record:', error);
         throw error;

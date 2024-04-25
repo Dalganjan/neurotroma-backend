@@ -14,7 +14,13 @@ app.use(cookieParser());
 app.use(cors({ origin: (origin, callback) => callback(null, true), credentials: true }));
 
 // api routes
-app.use('/api/accounts', require('./accounts/accounts.controller'));
+app.use('/api/accounts', require('./accounts/accounts.airtable.controller'));
+
+// assistant routes
+// app.use('/api/assistants', require('./assistant/assistant.controller'));
+
+// assistant routes
+// app.use('/api/prompts', require('./prompt/prompt.controller'));
 
 // swagger docs route
 app.use('/api/api-docs', require('_helpers/swagger'));
