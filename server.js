@@ -17,10 +17,10 @@ app.use(cors({ origin: (origin, callback) => callback(null, true), credentials: 
 app.use('/api/accounts', require('./accounts/accounts.airtable.controller'));
 
 // assistant routes
-// app.use('/api/assistants', require('./assistant/assistant.controller'));
+app.use('/api/assistants', require('./assistant/assistant.controller'));
 
-// assistant routes
-// app.use('/api/prompts', require('./prompt/prompt.controller'));
+// prompt routes
+app.use('/api/prompts', require('./prompt/prompt.controller'));
 
 // swagger docs route
 app.use('/api/api-docs', require('_helpers/swagger'));

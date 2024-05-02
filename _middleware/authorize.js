@@ -20,7 +20,7 @@ function authorize(roles = []) {
         async (req, res, next) => {
             const account = await accountService.getUserById(req.user.id);
             const refreshTokens = await airtableService.getRecordByFilters('RevokedTokens', `{accountId} = '${req.user.id}'`);
-            const nonExpiredTokens = refreshTokens.find((token) => token.fields.isExpired === 'false');
+            const nonExpiredTokens = refreshTokens.filter((token) => token.fields.isExpired === 'false');
             
             if (!account || (roles.length && !roles.includes(account.role))) {
                 // account no longer exists or role not authorized
@@ -33,30 +33,4 @@ function authorize(roles = []) {
             next();
         }
     ];
-}
-
-async function authenticateToken(req, res, next) {
-    const token = req.body.token || req.headers['authorization'];
-    req.headers['authorization'] = token;
-
-    if (!token) {
-        return res.status(401).json({ error: 'Unauthorized' });
-    }
-
-    try {
-        const records = await base('RevokedTokens').select({
-            filterByFormula: `{Token} = '${token}'`
-        }).firstPage();
-        if (records.length > 0) {
-            return res.status(401).json({ error: 'Token revoked, please log in again' });
-        }
-
-        // authenticate JWT token and attach user to request object (req.user)
-        jwt({ secret, algorithms: ['HS256'] });
-        
-        next();
-    } catch (error) {
-        console.error('Error checking revoked token:', error);
-        res.status(500).json({ error: 'Failed to authenticate token' });
-    }
 }

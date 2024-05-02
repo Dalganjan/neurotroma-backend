@@ -718,7 +718,53 @@ paths:
         "404":
           $ref: "#/components/responses/NotFoundError"
         "401":
-          $ref: "#/components/responses/UnauthorizedError"                     
+          $ref: "#/components/responses/UnauthorizedError"   
+  /assistants/:assistantId/patients:
+    post:
+      tags:
+        - Assistant
+      summary: Create new patient record
+      description: Create new patient record
+      operationId: recordPatient
+      parameters:
+        - in: path
+          name: assistantId
+          description: Account id
+          required: true
+          example: "5eb12e197e06a76ccdefc121"
+          schema:
+            type: string
+      responses:
+        "201":
+          description: Patient Details as patientId & adminId
+          headers:
+            Set-Cookie:
+              description: "`refreshToken`"
+              schema:
+                type: string
+                example: refreshToken=51872eca5efedcf424db4cf5afd16a9d00ad25b743a034c9c221afc85d18dcd5e4ad6e3f08607550; Path=/; Expires=Tue, 16 Jun 2020 09:14:17 GMT; HttpOnly
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  assistantId:
+                    type: string
+                    example: "as123"
+                  patientId:
+                    type: string
+                    example: "1343ffd343443"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Assistant not right"
+
 components:
   securitySchemes:
     bearerAuth:

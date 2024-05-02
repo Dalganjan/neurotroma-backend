@@ -144,7 +144,7 @@ function generateAccessToken(user) {
 
 // Generate Refresh Token
 function generateRefreshToken(user) {
-    return jwt.sign({ sub: user.id, id: user.id }, config.secret);
+    return jwt.sign({ sub: user.id, id: user.id }, config.secret, { expiresIn: '1h' });
 }
 
 function randomTokenString() {

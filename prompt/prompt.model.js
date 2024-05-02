@@ -1,10 +1,13 @@
 const promptModel =  {
-    TableName: 'PromptVersions',
-    Fields: {
-        prompt: String,
-        version: Number,
-        createdAt: Date,
-        ExtraData: Text // Use a text field to store JSON data
+    tableName: 'Prompts',
+    fields: {
+        promptId: {name: 'promptId', type: 'text'},
+        promptDetails: {name: 'promptDetails', type: 'text'},
+        promptUserId: {name: 'promptUserId', type: 'text'},
+        version: {name: 'version', type: 'Number'},
+        isLatest: {name: 'isLatest', type: 'boolean' },
+        sectionId: {name: 'sectionId', type: 'text' },
+        ExtraData: String // Use a text field to store JSON data
     }
 };
 
