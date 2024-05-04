@@ -22,7 +22,7 @@ function authorize(roles = []) {
             const refreshTokens = await airtableService.getRecordByFilters('RevokedTokens', `{accountId} = '${req.user.id}'`);
             const nonExpiredTokens = refreshTokens.filter((token) => token.fields.isExpired === 'false');
             
-            if (!account || (roles.length && !roles.includes(account.role))) {
+            if (!account || (roles.length && !roles.includes(account.fields.role))) {
                 // account no longer exists or role not authorized
                 return res.status(401).json({ message: 'Unauthorized' });
             }

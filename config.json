@@ -21,5 +21,8 @@
     "airtable": {
         "AIRTABLE_API_TOKEN": "patZSkzpoFnCxqafR.dc096c20f84cd23a18454aeb1fa8ada6fa8d0050babb1c1a353e6ece83ad2fd3",
         "AIRTABLE_BASE": "appLr4aQCjRXzyvEj"
+    },
+    "bastionGPT": {
+        "KEY": "25836182222e4b968cfeaf9efcdbd88b"
     }
 }
