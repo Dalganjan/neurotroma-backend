@@ -1,11 +1,13 @@
 ﻿require('rootpath')();
 const express = require('express');
+const timeout = require('connect-timeout');
 const app = express();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const errorHandler = require('_middleware/error-handler');
 
+app.use(timeout(120000));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());

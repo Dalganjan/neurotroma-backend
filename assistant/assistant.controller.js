@@ -10,6 +10,7 @@ const assistantService = require('./assistant.service');
 router.post('/:assistantId/patients', authorize(Role.Assistant), recordPatient);
 router.post('/:assistantId/patients/:patientId/sectionResults', authorize(Role.Assistant), sectionResultSchema, recordSectionWiseResults);
 router.put('/:assistantId/patients/:patientId/updateSectionPromptResponse', authorize(Role.Assistant), updateSectionPrompSchema, updateSectionPromptResponse);
+router.get('/:assistantId/patients/:patientId/sectionResults', authorize(Role.Assistant), getSectionWiseResults);
 
 module.exports = router;
 
@@ -26,7 +27,7 @@ function recordPatient(req, res, next) {
 
 function sectionResultSchema(req, res, next) {
     const schema = Joi.object({
-        sectionForm: Joi.string().required(),
+        sectionForm: Joi.object(),
         sectionId: Joi.string().required()
     });
     validateRequest(req, next, schema);
@@ -46,8 +47,8 @@ function recordSectionWiseResults(req, res, next) {
 function updateSectionPrompSchema(req, res, next) {
     const schema = Joi.object({
         sectionId: Joi.string().required(),
-        sectionPromptResponse: Joi.string(),
-        updatedResponseSize: Joi.string(),
+        sectionPromptResponse: Joi.string().required(),
+        updatedResponseSize: Joi.number().required(),
     });
     validateRequest(req, next, schema);
 }
@@ -60,5 +61,15 @@ function updateSectionPromptResponse(req, res, next) {
 
     assistantService.updateSectionPromptResponse(req.params.assistantId, req.params.patientId, req.body)
         .then((newPromptResponse) => res.json(newPromptResponse))
+        .catch(next);
+}
+
+function getSectionWiseResults(req, res, next) {
+    if (req.params.assistantId !== req.user.id && req.user.role !== Role.Assistant) {
+        return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    assistantService.getSectionWiseResults(req.params.patientId)
+        .then((sectionWiseResult) => res.json(sectionWiseResult))
         .catch(next);
 }

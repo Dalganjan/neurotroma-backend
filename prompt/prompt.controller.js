@@ -16,7 +16,7 @@ module.exports = router;
 
 function promptSchema() {
     const schema = Joi.object({
-        promptDetails: Joi.string().required(),
+        editorPromptDetails: Joi.string().required(),
         sectionId: Joi.string().required()
     });
     validateRequest(req, next, schema);
@@ -34,7 +34,7 @@ function recordPrompt(req, res, next) {
 
 function promptsUpdateSchema(req, res, next) {
     const schema = Joi.object({
-        promptDetails: Joi.string().required(),
+        editorPromptDetails: Joi.string().required(),
         sectionId: Joi.string().required(),
         isLatest: Joi.string(),
         version: Joi.number().required(),

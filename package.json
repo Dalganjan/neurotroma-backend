@@ -43,7 +43,8 @@
     "pug": "^3.0.2",
     "rootpath": "^0.1.2",
     "swagger-ui-express": "^4.6.0",
-    "yamljs": "^0.3.0"
+    "yamljs": "^0.3.0",
+    "connect-timeout": "^1.9.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.1.1",
